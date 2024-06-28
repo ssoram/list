@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>To Do list</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+
+  
+  <style>
+   @import url('https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap');
+   
+  
+  html {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  * {
+    font-family: "Hi Melody", sans-serif;
+    }
+  .bucket {
+    width: 160px;
+    height: 160px;
+    background-position: center;
+    background-size: cover;
+  
+    background-size: cover;
+    background-position: center;
+    margin: 8px;
+    position: relative;
+  
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    word-break: keep-all;
+  }
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .done::after {    
+    content: "";
+    width: 70%;
+    height: 70%;
+    background-image: url("https://cdn.crowdpic.net/list-thumb/thumb_l_6A9FC055F01111B8A2B245EAB092F962.png");
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 20%;
+  }
+  .wrap {
+    flex-wrap: wrap;
+  }
+  .msg {
+    margin: -10px 0 30px;
+    color: black;
+  }
+  
+  .title {
+    background-color: none;
+    color: tomato;
+  }
+  .bg {
+    background-image: url("https://blog.kakaocdn.net/dn/k2ftk/btq9t7DbLzw/7cPlWFd5W90KSaLkyOabE0/img.jpg");
+    background-size: cover;
+    background-position: center;
+    width: 360px;
+    background-size: cover;
+    background-position: center;
+  }
+  .img1 {
+    background-image: url("https://s3.ap-northeast-2.amazonaws.com/materials.spartacodingclub.kr/bucketList/bucket-pic1.png");
+  }
+  .img2 {
+    background-image: url("https://s3.ap-northeast-2.amazonaws.com/materials.spartacodingclub.kr/bucketList/bucket-pic2.png");
+  }
+  
+  .hidden {
+    visibility: hidden;
+  }
+  
+  body {
+    height: 100vh;
+  }
+</style>
+</head>
+
+<body class="bg ceter">
+  <h1 class="titl center">체크리스트</h1>
+  <input type='date' id='currentDate'/>
+  <div class='flex-row wrap'>
+    <div class="bucket img1 center">물 2L 마시기</div>
+    <div class="bucket img2 center">성경책 1장 읽기</div>
+    <div class="bucket img2 center">찬송가 1장 부르기</div>
+    <div class="bucket img1 center">성경 1구절 암송하기</div>
+    <div class="bucket img1 center">영양제 챙겨먹기</div>
+    <div class="bucket img2 center">녹차 마시기</div>
+    <div class="bucket img2 center">새벽 3시 전에 취침하기</div>
+    <div class="bucket img1 center">간단한 스트레칭하기</div>
+  </div>
+
+  <script>
+    // 페이지 로드 시 이전 상태 복원
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const buckets = document.querySelectorAll(".bucket");
+      buckets.forEach((bucket, index) => {
+        // 로컬 스토리지에서 상태 읽기
+        const isDone = localStorage.getItem("bucket" + index) === "done";
+        if (isDone) {
+          bucket.classList.add("done");
+        }
+      });
+    });
+
+    // 버킷 리스트 클릭 이벤트
+    const buckets = document.querySelectorAll(".bucket");
+    buckets.forEach((bucket, index) => {
+      bucket.addEventListener("click", function () {
+        // 클래스 토글
+        bucket.classList.toggle("done");
+
+        // 로컬 스토리지에 상태 저장
+        if (bucket.classList.contains("done")) {
+          localStorage.setItem("bucket" + index, "done");
+        } else {
+          localStorage.setItem("bucket" + index, "");
+        }
+      });
+    });
+     document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
+  </script>
+</body>
+
+</html>
